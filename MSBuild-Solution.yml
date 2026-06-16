@@ -1,0 +1,38 @@
+name: MSBuild Solution
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # 1. 拉取代码
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # 2. 自动寻找并配置系统中的 MSBuild 环境
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    # 3. 还原 NuGet 包（如果是 C++ 且没用 NuGet，可删掉这一步）
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1
+      
+    - name: Restore NuGet Packages
+      run: nuget restore UsingBYOVD.sln  # 替换为你的 sln 文件名
+
+    # 4. 使用 MSBuild 进行编译
+    - name: Build with MSBuild
+      run: msbuild UsingBYOVD.sln /p:Configuration=Release
+
+    # 5. （可选）收集编译产物
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: msbuild-compiled-app
+        path: '**/Release/' # 收集所有 Release 文件夹下的文件
