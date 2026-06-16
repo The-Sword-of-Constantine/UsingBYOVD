@@ -1,6 +1,7 @@
 #include "DriverWorker.hpp"
 #include "Log.hpp"
 #include "DriverSelector.hpp"
+#include <iostream> // 确保 std::cout 和 std::endl 可用
 
 static BOOLEAN g_bKiller{FALSE};
 
@@ -51,13 +52,8 @@ auto DriverWorker::KillerInit()->BOOLEAN
 	return FALSE;
 }
 
-
-
 auto DriverWorker::Kill(ULONG Pid) ->BOOLEAN
 {
-
-	
-
 	auto bResult{ FALSE };
 
 	// check it again
@@ -66,13 +62,11 @@ auto DriverWorker::Kill(ULONG Pid) ->BOOLEAN
 		return FALSE;
 	}
 
-	
-
 	if (Pid > 4)
 	{
-		LOG("Kill pid = ") << Pid << std::endl;;
+		// 修复了原本错误的 LOG(...) << 语法
+		std::cout << "Kill pid = " << Pid << std::endl;
 		bResult = CurrentKiller()->KillProcess(Pid);
-
 	}
 
 	// unload will cause BSOD
