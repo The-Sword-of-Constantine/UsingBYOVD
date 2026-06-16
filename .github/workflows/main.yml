@@ -1,0 +1,39 @@
+name: Build UsingBYOVD Solution
+
+on:
+  push:
+    branches: [ "main", "master" ] # 兼容主分支名为 main 或 master 的情况
+  pull_request:
+    branches: [ "main", "master" ]
+
+# 解决 Node.js 20 逐渐弃用的警告
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  build:
+    # 必须使用 Windows 虚拟机，它内置了完整的 Visual Studio 编译链
+    runs-on: windows-latest
+
+    steps:
+    # 1. 拉取代码（升级到 v5 解决底层 Node.js 警告）
+    - name: Checkout Repository
+      uses: actions/checkout@v5
+
+    # 2. 核心：添加 MSBuild 环境变量，以便系统能识别 msbuild 命令
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    # 3. 编译解决方案 (编译为 Release 模式下的 x64 架构)
+    # 该项目通常是 64 位驱动/工具，所以加了 /p:Platform=x64
+    - name: Build Solution with MSBuild
+      run: msbuild UsingBYOVD.sln /p:Configuration=Release /p:Platform=x64
+
+    # 4. 收集编译生成的二进制文件 (.exe)
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: UsingBYOVD-Release-x64
+        # 收集 x64/Release 目录下生成的所有可执行文件和关键文件
+        path: |
+          x64/Release/*.exe
