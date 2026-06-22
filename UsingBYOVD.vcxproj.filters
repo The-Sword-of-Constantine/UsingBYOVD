@@ -138,6 +138,12 @@
     <ClInclude Include="BYOVD\ArdrvBin.hpp">
       <Filter>BYOVD</Filter>
     </ClInclude>
+    <ClInclude Include="BYOVD\WinNotify.h">
+      <Filter>BYOVD</Filter>
+    </ClInclude>
+    <ClInclude Include="BYOVD\WinNotifyBin.hpp">
+      <Filter>BYOVD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -198,6 +204,9 @@
       <Filter>BYOVD</Filter>
     </ClCompile>
     <ClCompile Include="BYOVD\Ardrv.cpp">
+      <Filter>BYOVD</Filter>
+    </ClCompile>
+    <ClCompile Include="BYOVD\WinNotify.cpp">
       <Filter>BYOVD</Filter>
     </ClCompile>
   </ItemGroup>

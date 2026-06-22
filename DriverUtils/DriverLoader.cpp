@@ -19,64 +19,391 @@
 const
 wchar_t*
 AvOrEdrNames[] = {
+	// Acronis
+	L"acronis_agent.exe",
+	L"BackupAndRecoveryAgent.exe",
+	L"managementagenthost.exe",
+	L"mms.exe",
+
+	// AlienVault
+	L"alienvault-agent.exe",
+	L"osqueryd.exe",
+
+	// Avast
+	L"afwServ.exe",
+	L"aswEngSrv.exe",
+	L"aswidsagent.exe",
+	L"aswToolsSvc.exe",
+	L"AvastSvc.exe",
+	L"AvastUI.exe",
+	L"avastsvc.exe",
+	L"avastui.exe",
+	L"bccavsvc.exe",
+	L"wsc_proxy.exe",
+
+	// AVG
+	L"AVGUI.exe",
+	L"AVGSvc.exe",
+	L"avgnt.exe",
+	L"avgsvca.exe",
+	L"avgToolsSvc.exe",
+
+	// Binary Defense
+	L"BinaryDefenseAgent.exe",
+
+	// Bitdefender
+	L"Arrakis3.exe",
+	L"BDAvScanner.exe",
+	L"BDFsTray.exe",
+	L"BDFileServer.exe",
+	L"BDLived2.exe",
+	L"BDLogger.exe",
+	L"BDScheduler.exe",
+	L"BDStatistics.exe",
+	L"bdagent.exe",
+	L"bdemsrv.exe",
+	L"bdntwrk.exe",
+	L"bdredline.exe",
+	L"bdregsvr2.exe",
+	L"bdservicehost.exe",
+
+	// Blumira
+	L"BlumiraAgent.exe",
+
+	// Bromium
+	L"BromiumDaemon.exe",
+	L"BrDifxapi.exe",
+
+	// Carbon Black
+	L"cb.exe",
+	L"cbcomms.exe",
+	L"cbdefense.exe",
+	L"carbonsensor.exe",
+	L"RepMgr.exe",
+
+	// Cisco Talos
+	L"cfrutil.exe",
+	L"CiscoAMPCEFWDriver.exe",
+	L"cisco_amp_connector.exe",
+	L"immunet.exe",
+
+	// CrowdStrike
+	L"ARWSRVC.EXE",
+	L"ARCUpdate.exe",
+	L"CSFalconContainer.exe",
+	L"CSFalconService.exe",
+	L"CSFalconUI.exe",
+	L"csfalcondataprotect.exe",
+	L"csfalcondaterepair.exe",
+	L"REPRSVC.EXE",
+
+	// Cynet
+	L"CynetEPS.exe",
+	L"CynetMS.exe",
+	L"CynetSvc.exe",
+
+	// Cybereason
+	L"ActiveConsole.exe",
+	L"cybereason.exe",
+	L"CybereasonActiveProbe.exe",
+	L"CybereasonCR.exe",
+
+	// Cyvera
+	L"CyveraConsole.exe",
+	L"CyveraService.exe",
+	L"CyvrAgentSvc.exe",
+	L"CyvrFsFlt.exe",
+	L"cyvrfsflt.exe",
+
+	// Cylance / BlackBerry
+	L"CylanceSvc.exe",
+
+	// Darktrace
+	L"DarktraceTSA.exe",
+
+	// Deep Instinct
+	L"DeepInstinct.exe",
+	L"DeepInstinctService.exe",
+	L"DIAgentService.exe",
+
+	// Elastic
+	L"a2guard.exe",
+	L"a2service.exe",
+
+	// ESET
+	L"eamonm.exe",
+	L"eamsi.exe",
+	L"ecls.exe",
+	L"efwd.exe",
+	L"egui.exe",
+	L"eguiProxy.exe",
+	L"ekrn.exe",
+	L"ekrnEpfw.exe",
+	L"ERAAgent.exe",
+	L"EraAgentSvc.exe",
+
+	// Fortinet
+	L"firesvc.exe",
+	L"firetray.exe",
+	L"FortiTray.exe",
+	L"fortiedr.exe",
+	L"fw.exe",
+
+	// G DATA
+	L"GDDServer.exe",
+	L"QHPISVR.EXE",
+	L"QUHLPSVC.EXE",
+	L"SAPISSVC.EXE",
+
+	// Heimdal
+	L"HeimdalsecurityAgent.exe",
+
+	// Huntress
+	L"HuntressAgent.exe",
+	L"HuntressRMM.exe",
+
+	// Kaspersky
+	L"avp.exe",
+	L"avpsus.exe",
+	L"avpui.exe",
+	L"kavfs.exe",
+	L"kavfsscs.exe",
+	L"kavfswh.exe",
+	L"kavfswp.exe",
+	L"kavtray.exe",
+	L"klactprx.exe",
+	L"klcsldcl.exe",
+	L"klcsweb.exe",
+	L"klnagent.exe",
+	L"klnagchk.exe",
+	L"klscctl.exe",
+	L"klserver.exe",
+	L"klwtblfs.exe",
+	L"kpf4ss.exe",
+	L"ksde.exe",
+	L"ksdeui.exe",
+	L"vapm.exe",
+
+	// LogRhythm
+	L"LogProcessorService.exe",
+
+	// McAfee / Trellix
+	L"AGMService.exe",
+	L"AGSService.exe",
+	L"masvc.exe",
+	L"macmnsvc.exe",
+	L"McAfeeAgent.exe",
+	L"mcshield.exe",
+	L"mfeann.exe",
+	L"mfevtps.exe",
+	L"mfetp.exe",
+	L"mfeepehost.exe",
+	L"mfefire.exe",
+	L"mfemactl.exe",
+	L"mfemacsvc.exe",
+	L"mfemgr.exe",
+	L"mfemms.exe",
+	L"MgntSvc.exe",
+	L"ModuleCoreService.exe",
+	L"tepfsvc.exe",
+
+	// Microsoft Defender
+	L"MSASCui.exe",
+	L"MSASCuiL.exe",
+	L"MpDefenderCoreService.exe",
 	L"MsMpEng.exe",
+	L"MsMpSvc.exe",
+	L"MsSense.exe",
+	L"msascuil.exe",
+	L"msseces.exe",
+	L"NisSrv.exe",
+	L"nissrv.exe",
 	L"SecurityHealthService.exe",
 	L"SecurityHealthSystray.exe",
-	L"MsSense.exe",
+	L"SenseCncProxy.exe",
+	L"SenseIR.exe",
 	L"SenseNdr.exe",
-	L"SenseTVM.exe",
-	L"NisSrv.exe",
-	L"MpCmdRun.exe",
-	L"MpSigStub.exe",
-	L"ConfigSecurityPolicy.exe",
+	L"SenseSampleUploader.exe",
 	L"smartscreen.exe",
-	L"CSFalconService.exe",
-	L"CSFalconContainer.exe",
-	L"CSAgent.exe",
-	L"falcon-sensor.exe",
+	L"windefend.exe",
+
+	// Morphisec
+	L"MorphisecService.exe",
+
+	// Norton / Symantec
+	L"ccApp.exe",
+	L"ccSvcHst.exe",
+	L"ccsvchst.exe",
+	L"ns.exe",
+	L"nsservice.exe",
+	L"nortonsecurity.exe",
+	L"rtvscan.exe",
+	L"SepMasterService.exe",
+	L"sepWscSvc64.exe",
+	L"smc.exe",
+	L"SmcGui.exe",
+	L"snac.exe",
+	L"SymCorpUI.exe",
+	L"SymWSC.exe",
+
+	// OSSEC / Wazuh
+	L"ossec-agent.exe",
+	L"wazuh-agent.exe",
+
+	// Palo Alto Networks (Traps / Cortex)
+	L"cortexService.exe",
+	L"trapsagent.exe",
+	L"trapsd.exe",
+	L"Traps.exe",
+
+	// Panda Security
+	L"panda_url_filtering.exe",
+	L"pavfnsvr.exe",
+	L"pavsrv.exe",
+	L"psanhost.exe",
+	L"PSANHost.EXE",
+	L"pselamsvc.EXE",
+	L"PSUAMain.EXE",
+	L"PSUAService.EXE",
+	L"pangps.exe",
+
+	// Qualys
+	L"qualys-cloud-agent.exe",
+	L"QualysAgent.exe",
+
+	// Rapid7
+	L"ir_agent.exe",
+	L"rapid7_endpoint.exe",
+
+	// Red Canary
+	L"RedCanaryAgent.exe",
+
+	// Sangfor
+	L"CSAAgent.exe",
+	L"CSAService.exe",
+	L"SangforAgent.exe",
+	L"SangforCSA.exe",
+	L"SangforEDR.exe",
+	L"SangforInterface.exe",
+	L"SangforMonitor.exe",
+	L"SangforProtect.exe",
+	L"SangforService.exe",
+	L"SangforTray.exe",
+	L"SangforUD.exe",
+
+	// SentinelOne
+	L"Sentinel.exe",
 	L"SentinelAgent.exe",
 	L"SentinelAgentWorker.exe",
+	L"SentinelCtl.exe",
+	L"SentinelHelperService.exe",
+	L"SentinelMemoryScanner.exe",
+	L"SentinelPowerShellExtension.exe",
+	L"SentinelRanger.exe",
 	L"SentinelServiceHost.exe",
 	L"SentinelStaticEngine.exe",
-	L"cb.exe",
-	L"cbstream.exe",
-	L"carbonblack.exe",
-	L"RepMgr.exe",
-	L"RepUtils.exe",
-	L"RepUx.exe",
-	L"ccSvcHst.exe",
-	L"SymCorpUI.exe",
-	L"SEPM.exe",
-	L"SmcGui.exe",
-	L"smc.exe",
-	L"ccApp.exe",
-	L"McShield.exe", 
-	L"mfevtps.exe", 
-	L"mfeann.exe", 
-	L"mcapexe.exe", 
-	L"ModuleCoreService.exe",
-	L"mfemms.exe",
-	L"PccNTMon.exe", 
-	L"ntrtscan.exe", 
-	L"tmlisten.exe",
-	L"CNTAoSMgr.exe",
-	L"TmCCSF.exe", 
-	L"avp.exe",
-	L"kavtray.exe", 
-	L"klnagent.exe", 
-	L"ksde.exe", 
-	L"cytray.exe", 
-	L"cyserver.exe",
-	L"CyveraService.exe",
-	L"xagt.exe", 
-	L"fe_avk.exe", 
-	L"HX.exe",
-	L"HipsDaemon.exe",
-	L"HipsTray.exe",
+	L"SentinelStaticEngineScanner.exe",
+	L"SentinelUI.exe",
+
+	// SonicWall
+	L"SonicWallClientProtectionService.exe",
+	L"swc_service.exe",
+
+	// Sophos
+	L"hmpalert.exe",
+	L"McsAgent.exe",
+	L"McsClient.exe",
+	L"SavApi.exe",
+	L"SAVAdminService.exe",
+	L"SAVService.exe",
+	L"SEDService.exe",
+	L"SophosADSyncService.exe",
+	L"SophosClean.exe",
+	L"SophosCleanM64.exe",
+	L"SophosFIMService.exe",
+	L"SophosFS.exe",
+	L"SophosHealth.exe",
+	L"SophosLiveQueryService.exe",
+	L"SophosMTR.exe",
+	L"SophosMTRExtension.exe",
+	L"SophosNetFilter.exe",
+	L"SophosNtpService.exe",
+	L"SophosOsquery.exe",
+	L"SophosOsqueryExtension.exe",
+	L"Sophos.PolicyEvaluation.Service.exe",
+	L"SophosSafestore64.exe",
+	L"SophosUI.exe",
+	L"SophosUpdateMgr.exe",
+	L"sophosav.exe",
+	L"sophossps.exe",
+	L"SSPService.exe",
+
+	// Tanium
+	L"TaniumClient.exe",
+	L"TaniumCX.exe",
+	L"tanclient.exe",
+
+	// ThreatLocker
+	L"ThreatLockerConsent.exe",
+	L"threatlockerservice.exe",
+	L"threatlockertray.exe",
+
+	// Trend Micro
+	L"coreFrameworkHost.exe",
+	L"coreServiceShell.exe",
+	L"NTRTScan.exe",
+	L"ntrtscan.exe",
+	L"Ntrtscan.exe",
+	L"OfcService.exe",
+	L"ofcDdaSvr.exe",
+	L"PccNTMon.exe",
+	L"PccNt.exe",
+	L"TISafe.exe",
+	L"TISafeSvc.exe",
+	L"TmCCSF.exe",
+	L"tmicAgentSetting.exe",
+	L"TMBMSRV.exe",
+	L"Tmbmsrv.exe",
+	L"tm_netsrv.exe",
+	L"TmListen.exe",
+	L"tmntsrv.exe",
+	L"TmPfw.exe",
+	L"tmproxy.exe",
+	L"TmProxy.exe",
+	L"TmPreFilter.exe",
+	L"TmSSClient.exe",
+	L"TmsaInstance64.exe",
+	L"TmWscSvc.exe",
+	L"VOneAgentConsole.exe",
+	L"VOneAgentConsoleTray.exe",
+
+	// Uptycs
+	L"VectorAgent.exe",
+	L"UptycsAgent.exe",
+
+	// Varonis
+	L"DatAdvantage.exe",
+	L"VaronisAgent.exe",
+
+	// WatchGuard
+	L"wlcsservice.exe",
+
+	// Webroot
+	L"WRSA.exe",
+	L"WRSkyClient.exe",
+	L"WRSVC.exe",
+	L"wrsa.exe",
+
+	// Windows Sysinternals
+	L"Sysmon.exe",
+	L"Sysmon64.exe",
+
+	// Zscaler
+	L"zlclient.exe",
+
+	// 360
 	L"ZhuDongFangYu.exe"
 };
-
-
 
 
 typedef USHORT RTL_ATOM, * PRTL_ATOM;

@@ -162,6 +162,8 @@
     <ClInclude Include="BYOVD\ProcessCtrBin.hpp" />
     <ClInclude Include="BYOVD\WinMsrDev.h" />
     <ClInclude Include="BYOVD\WinMsrDevBin.hpp" />
+    <ClInclude Include="BYOVD\WinNotify.h" />
+    <ClInclude Include="BYOVD\WinNotifyBin.hpp" />
     <ClInclude Include="DriverUtils\DriverKiller.hpp" />
     <ClInclude Include="DriverUtils\DriverLoader.h" />
     <ClInclude Include="DriverUtils\DriverProvider.hpp" />
@@ -194,6 +196,7 @@
     <ClCompile Include="BYOVD\PGRHostControl.cpp" />
     <ClCompile Include="BYOVD\ProcessCtr.cpp" />
     <ClCompile Include="BYOVD\WinMsrDev.cpp" />
+    <ClCompile Include="BYOVD\WinNotify.cpp" />
     <ClCompile Include="DriverUtils\DriverLoader.cpp" />
     <ClCompile Include="DriverUtils\DriverProvider.cpp" />
     <ClCompile Include="DriverUtils\DriverService.cpp" />

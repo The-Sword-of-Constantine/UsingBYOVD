@@ -365,3 +365,5 @@ FodyWeavers.xsd
 /BYOVD/KslD.h
 /BYOVD/KslDBin.hpp
 /Syscalls/bak
+/RawDriverFiles/KSLD.sys.i64
+/BYOVD
