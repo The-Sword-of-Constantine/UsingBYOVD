@@ -112,3 +112,10 @@ UsingBYOVD 是一个基于 **BYOVD（Bring Your Own Vulnerable Driver，自带�
 | HWAuidoOs2Ec.sys| 90d2e9e994ed8e964845a26dce741ad43b29ff54cf5faa67271d62d4e24acbc8 | 0x2248DC |https://www.huntress.com/blog/w2-malvertising-to-kernel-mode-edr-kill https://www.welivesecurity.com/en/eset-research/killing-me-gently-inside-gentlemens-edr-killer-framework https://github.com/magicsword-io/LOLDrivers/issues/325 |
 |DCRCVDrv.sys|87e8d39db624f37d3e77aedf487a2dfd197f71a4730ea74f4e7a4341deaec2ff|0x2205C0u|https://github.com/magicsword-io/LOLDrivers/issues/403  https://x.com/YungBinary/status/2085255978367569939?s=20|  
 |MonProcessEX.sys  MonProcess.sys|72d0b5615b996cbb01b1ca139e627079094f734da48a0435ffd8480a25d0a258  8a8652604f7789a6259ae05266652580b18729e1f1c05612b9d338eb8379ecee|0x22400Cu| https://github.com/magicsword-io/LOLDrivers/issues/384 |  
+
+
+
+## ⚠️ 声明 / Notice
+
+* **代码许可**：本项目基于 **GPL-3.0** 协议开源，任何衍生项目必须保持开源并保留原作者署名。
+* **拒绝洗稿**：未经作者（The-Sword-of-Constantine）书面授权，**严禁任何微信公众号、自媒体或博客对本项目文档进行不署名搬运、洗稿或二次备份**。转载请务必在文章头部显著位置标注本项目 GitHub 唯一链接。

@@ -126,4 +126,10 @@ Utilizes the Superfetch implementation from [redteamfortress/PPLShade](https://g
 | GGProtect64| 0aa69aee93c6be9bc82680a7df99c114591038ae02e6666fc6e42acb09643111 | 0x223C04 |https://github.com/magicsword-io/LOLDrivers/issues/325 https://github.com/magicsword-io/LOLDrivers/issues/368 https://github.com/KeServiceDescriptorTable/vulnerable-drivers https://github.com/Haider303/GGProtect-exploit https://medium.com/@haider303mustafa/bypassing-weak-driver-authentication-to-kill-ppl-protected-processes-ggprotect64-sys-analysis-d8f44c5837b4|
 | HWAuidoOs2Ec.sys| 90d2e9e994ed8e964845a26dce741ad43b29ff54cf5faa67271d62d4e24acbc8 | 0x2248DC |https://www.huntress.com/blog/w2-malvertising-to-kernel-mode-edr-kill https://www.welivesecurity.com/en/eset-research/killing-me-gently-inside-gentlemens-edr-killer-framework https://github.com/magicsword-io/LOLDrivers/issues/325 |
 |DCRCVDrv.sys|87e8d39db624f37d3e77aedf487a2dfd197f71a4730ea74f4e7a4341deaec2ff|0x2205C0u|https://github.com/magicsword-io/LOLDrivers/issues/403  https://x.com/YungBinary/status/2085255978367569939?s=20|  
-|MonProcessEX.sys  MonProcess.sys|72d0b5615b996cbb01b1ca139e627079094f734da48a0435ffd8480a25d0a258  8a8652604f7789a6259ae05266652580b18729e1f1c05612b9d338eb8379ecee|0x22400Cu| https://github.com/magicsword-io/LOLDrivers/issues/384 |
+|MonProcessEX.sys  MonProcess.sys|72d0b5615b996cbb01b1ca139e627079094f734da48a0435ffd8480a25d0a258  8a8652604f7789a6259ae05266652580b18729e1f1c05612b9d338eb8379ecee|0x22400Cu| https://github.com/magicsword-io/LOLDrivers/issues/384 |   
+
+
+## ⚠️ License & Notice
+
+* **Code License**: This project is licensed under **GPL-3.0**. Any derivative works must remain open-source and preserve the original author's attribution.
+* **Anti-Plagiarism**: Unauthorized copying, archiving, or publishing of this project's documentation on third-party platforms (e.g., blogs, media accounts) without explicit written permission is strictly prohibited. Proper attribution and a link back to this repository are mandatory for any authorized reference.
