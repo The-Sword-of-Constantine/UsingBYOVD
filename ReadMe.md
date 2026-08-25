@@ -113,6 +113,10 @@ Special thanks to the author of [SysWhispers4](https://github.com/JoasASantos/Sy
 Utilizes the Superfetch implementation from [redteamfortress/PPLShade](https://github.com/redteamfortress/PPLShade) project.
 
 
+## kdmapper
+参考了[kdmapper](https://github.com/TheCruZ/kdmapper) 手动映射无签名驱动
+Special thanks to the author of [kdmapper](https://github.com/TheCruZ/kdmapper) for sharing this project.
+
 ## BYOVD
 
 **Killer**

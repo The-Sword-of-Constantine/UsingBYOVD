@@ -96,6 +96,7 @@ UsingBYOVD 是一个基于 **BYOVD（Bring Your Own Vulnerable Driver，自带�
 ## 参考项目
 > SysWhispers4 : [SysWhispers4](https://github.com/JoasASantos/SysWhispers4)  
 > superfetch : [PPLShade](https://github.com/redteamfortress/PPLShade/blob/main/PPLShade/superfetch.h)  
+> 参考了[kdmapper](https://github.com/TheCruZ/kdmapper) 手动映射无签名驱动
 
 
 ## BYOVD
