@@ -131,6 +131,7 @@ Special thanks to the author of [kdmapper](https://github.com/TheCruZ/kdmapper) 
 | HWAuidoOs2Ec.sys| 90d2e9e994ed8e964845a26dce741ad43b29ff54cf5faa67271d62d4e24acbc8 | 0x2248DC |https://www.huntress.com/blog/w2-malvertising-to-kernel-mode-edr-kill https://www.welivesecurity.com/en/eset-research/killing-me-gently-inside-gentlemens-edr-killer-framework https://github.com/magicsword-io/LOLDrivers/issues/325 |
 |DCRCVDrv.sys|87e8d39db624f37d3e77aedf487a2dfd197f71a4730ea74f4e7a4341deaec2ff|0x2205C0u|https://github.com/magicsword-io/LOLDrivers/issues/403  https://x.com/YungBinary/status/2085255978367569939?s=20|  
 |MonProcessEX.sys  MonProcess.sys|72d0b5615b996cbb01b1ca139e627079094f734da48a0435ffd8480a25d0a258  8a8652604f7789a6259ae05266652580b18729e1f1c05612b9d338eb8379ecee|0x22400Cu| https://github.com/magicsword-io/LOLDrivers/issues/384 |   
+|kgameprotect.sys | 6c1d596d18213e24f0c88d58ea7f3ca24114eded806b6198a8abc701251126ee | 0x222048u | https://github.com/magicsword-io/LOLDrivers/pull/428 |  
 
 
 ## ⚠️ Notice & License
