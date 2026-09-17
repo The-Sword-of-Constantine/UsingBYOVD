@@ -35,7 +35,7 @@ UsingBYOVD 是一个基于 **BYOVD（Bring Your Own Vulnerable Driver，自带�
 | `--KillProcess` / `--k` / `--K` | `-k` / `-K` | `<PID>` | 强行**结束（Kill）**指定 `<PID>` 的进程 |
 | `--ka` / `--KA` | - | 无 | **自动强杀**系统中所有已知的反病毒软件/安全防护进程（AV/EDR） |
 | `--map` / `--m` / `--M` | `-m` / `-M` | `<驱动路径>` | **映射驱动**。利用漏洞驱动加载指定路径下的未签名驱动 |
-| `--dmp` | - | 无 | **转储 LSASS**。导出 `lsass.exe` 进程的内存文件 |
+| `--dmp` | - | 无 | **转储 LSASS**。导出 `lsass.exe` 进程的内存文件(**仅支持windows 11以下版本**) |
 | `--help` | `-h` | 无 | 显示彩色帮助信息并退出程序 |
 
 ---
@@ -78,7 +78,7 @@ UsingBYOVD 是一个基于 **BYOVD（Bring Your Own Vulnerable Driver，自带�
   UsingBYOVD.exe --map(加载示例驱动)
   ```
 
-### 5. 凭据导出
+### 5. 凭据导出(支持Windows11以下版本)
 * **转储 LSASS 内存以获取凭据**：
   ```bash
   UsingBYOVD.exe --dmp

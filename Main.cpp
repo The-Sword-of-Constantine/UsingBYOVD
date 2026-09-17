@@ -354,8 +354,9 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 			bMapping = TRUE;
 		}
 
-		else if (arg == "--dmp")
+		else if (arg == "--dmp" && buildNumber < 22000)
 		{
+			// only support < windows11
 			bDumpLsass = TRUE;
 		}
 
@@ -488,6 +489,7 @@ $$$$$$$  | $$ | $$ |  $$ | \$$$$$$$ | $$ |       \$$$$$$$ |      $$$$$$$$$ \$  /
 	}
 	else if (bDumpLsass)
 	{
+		// < windows11
 		// get lsass pid and handle object
 
 		do 

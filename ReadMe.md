@@ -34,7 +34,7 @@ The tool parses parameters case-sensitively or case-insensitively based on the s
 | `--KillProcess` | `--k`, `--K`, `-k`, `-K` | `<PID>` | **Force Kill**. Forcefully terminates the process matching the target PID from kernel space. |
 | `--ka`, `--KA` | *None* | *None* | **Kill All AVs**. Automatically enumerates and terminates all known Antivirus/EDR processes. |
 | `--map` | `--m`, `--M`, `-m`, `-M` | `<Path>` | **Driver Mapper**. Manually maps an unsigned driver file path into kernel space. |
-| `--dmp` | *None* | *None* | **LSASS Dump**. Generates a raw memory dump file of the `lsass.exe` process. |
+| `--dmp` | *None* | *None* | **LSASS Dump**. Generates a raw memory dump file of the `lsass.exe` process. **Only support < windows11**）|
 | `--help` | `-h` | *None* | Displays the built-in pink-colored help menu and terminates execution. |
 
 ---
@@ -77,7 +77,7 @@ The tool parses parameters case-sensitively or case-insensitively based on the s
     UsingBYOVD.exe --map C:\Windows\Temp\my_unsigned_driver.sys
     ```
 
-### 5. LSASS Memory Dumping
+### 5. LSASS Memory Dumping(Only support < windows11)
 
 *   **Dump LSASS memory safely to disk**:
     ```cmd
