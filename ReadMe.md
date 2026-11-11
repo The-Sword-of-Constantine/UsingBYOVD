@@ -133,6 +133,7 @@ Special thanks to the author of [kdmapper](https://github.com/TheCruZ/kdmapper) 
 |MonProcessEX.sys  MonProcess.sys|72d0b5615b996cbb01b1ca139e627079094f734da48a0435ffd8480a25d0a258  8a8652604f7789a6259ae05266652580b18729e1f1c05612b9d338eb8379ecee|0x22400Cu| https://github.com/magicsword-io/LOLDrivers/issues/384 |   
 |kgameprotect.sys | 6c1d596d18213e24f0c88d58ea7f3ca24114eded806b6198a8abc701251126ee | 0x222048u | https://github.com/magicsword-io/LOLDrivers/pull/428 |  
 |fortimon3.sys|f77ac4ee0fef473e228250ab6202dd3c639e31b6ee988c4346365b4c029d382c|0x6C6C696B(Magic Number)| https://github.com/mein-0/forti-research|  
+|usafe.sys|a598e5068f759e4daa2e9f7b18dfdd74037872f8f0891f773a912bfba151184a|Handshake Magic Number: 0x55484C4F; Activation command Magic Number: 0x7576; Kill Process command: 0x757B (InputBuffer requires AES-256-ECB encryption with a private key).|https://github.com/magicsword-io/LOLDrivers/pull/499 https://www.virustotal.com/gui/file/a598e5068f759e4daa2e9f7b18dfdd74037872f8f0891f773a912bfba151184a|   
 
 
 ## ⚠️ Notice & License
